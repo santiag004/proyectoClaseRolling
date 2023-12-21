@@ -1,18 +1,12 @@
-const mensajeEliminadoProducto = document.getElementById("mensajeEliminado")
-const buttonEliminar = document.createElement("button")
-buttonEliminar.textContent = "Eliminar Producto"
-buttonEliminar.addEventListener("click", () => {
-    //falta llamar a la funcion y agregarle a ulProducto el removechild(li)
+const botonEliminarProducto = document.createElement("button")
+botonEliminarProducto.textContent = "Borrar Producto"
+li.appendChild(botonEliminarProducto)
+botonEliminarProducto.addEventListener ("click", () => {
+    eliminarProductos(database, productos)
+    listarProductos()
+    huecosLibres()
+    carritoLlena()
 })
-
-function eliminarProdcuto (ulProductos , productoAeliminar) {
-const eliminar = ulProductos.indexOF(productoAeliminar)
-let confirmar = confirm("Deseas eliminar el producto?")//sale como un alert para aceptar o cancelar
-if (confirmar) {
-    ulProductos.splice(eliminar , 1)
-    mensajeEliminadoProducto.textContent = `El producto fue eliminado`
+const eliminarProductos = (database, productos) => {
+database.removeItem(productos.id)
 }
-}
-//al li hay que agregarle el appenchild (buttonEliminar)
-//ulProductos agregarle el appenchild (li)
-//localStorage?????? removeIteam pero que parametro paso? lista? 
