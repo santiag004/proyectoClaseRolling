@@ -8,7 +8,7 @@ buttonEliminar.addEventListener("click", () => {
 function eliminarProdcuto (ulProductos , productoAeliminar) {
 const eliminar = ulProductos.indexOF(productoAeliminar)
 let confirmar = confirm("Deseas eliminar el producto?")//sale como un alert para aceptar o cancelar
- if (confirmar) {
+if (confirmar) {
     ulProductos.splice(eliminar , 1)
     mensajeEliminadoProducto.textContent = `El producto fue eliminado`
 }
