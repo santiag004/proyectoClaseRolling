@@ -1,3 +1,4 @@
+const mensajeEliminadoProducto = document.getElementById("mensajeEliminado")
 const buttonEliminar = document.createElement("button")
 buttonEliminar.textContent = "Eliminar Producto"
 buttonEliminar.addEventListener("click", () => {
@@ -6,8 +7,10 @@ buttonEliminar.addEventListener("click", () => {
 
 function eliminarProdcuto (ulProductos , productoAeliminar) {
 const eliminar = ulProductos.indexOF(productoAeliminar)
- if (eliminar !== -1) {
+let confirmar = confirm("Deseas eliminar el producto?")//sale como un alert para aceptar o cancelar
+ if (confirmar) {
     ulProductos.splice(eliminar , 1)
+    mensajeEliminadoProducto.textContent = `El producto fue eliminado`
 }
 }
 //al li hay que agregarle el appenchild (buttonEliminar)
