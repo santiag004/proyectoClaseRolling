@@ -1,51 +1,59 @@
-const productos = [];
-const formAgregar = document.getElementById("formAgregarProducto")
-const nombreProducto = document.getElementById("inputNombreProducto")
-const descripcionProducto = document.getElementById("inputDescripcionProducto")
-const precioProducto = document.getElementById("inputPrecioProducto")
-const btnAdd = document.getElementById("buttonAgregarProducto")
+const database = window.localStorage
+const formAgregarProductos = document.getElementById("formAgregarProducto")
+const inputAgregarProductosNombre = document.getElementById("inputNombreProducto") 
+const inputAgregarProductosNumero = document.getElementById("inputPrecioProducto")
+const inputAgregarProductoDetalles = document.getElementById("inputDescripcionProducto")
+const btnAddProducto = document.getElementById("buttonAgregarProducto") 
 
+let Productos = {}
 
-
-class Producto {
-  constructor(nombre, detalle, precio) {
-    this._nombre = nombre;
-    this._detalle = detalle;
-    this._precio = precio;
-  }
-  get getNombre() {
-    return this._name;
-  }
-  set setNombre(nombre) {
-    this._nombre = nombre;
-  }
-
-  get getDetalle() {
-    return this._detalle;
-  }
-  set setDetalle(detalle) {
-    this._detalle = detalle;
-  }
-  get getPrecio() {
-    return this._precio;
-  }
-  set setPrecio(precio) {
-    this._precio = precio;
-  }
+const guardarProductoDB = (db, productoAGuardar) => {
+    db.setItem(productoAGuardar.id, JSON.stringify(productoAGuardar))
 }
 
-btnAdd.addEventListener("click", (event) => {
-  event.preventDefault()
-  if (nombreProducto.value==="" && descripcionProducto.value === "" && precioProducto.value==="") {
-    alert("NO puede agregar un producto vacio")
-  } else {
-    let nombre = nombreProducto.value.toLowerCase().trim();
-    let descripcio = descripcionProducto.value.toLowerCase().trim()
-    let precio = precioProducto.value
-    productos.push(new Producto(nombre, descripcio, precio));
-    localStorage.setItem("misProductos",JSON.stringify(productos))
-  }
-  console.log(productos)
-  formAgregarProducto.reset();
-});
+btnAddProducto.addEventListener("click", (event) => {
+    event.preventDefault();
+    const nombreProducto = inputAgregarProductosNombre.value.toLowerCase()
+    const precioProducto = parseInt(inputAgregarProductosNumero.value)
+    const detallesProducto = inputAgregarProductoDetalles.value.toLowerCase()
+    let productosEnDB = Object.keys(database)
+    if (productosEnDB.length === 10 ) {
+        return Swal.fire({
+            icon: "error",
+            title: "ERROR",
+            text: "SE ALCANZÓ EL LIMITE DE PRODUCTOS DEL CARRITO (10 productos)",
+            footer: 'Probá borrando productos'
+          });
+    }
+
+    for (let id of productosEnDB) {
+        let producto = JSON.parse(database.getItem(id))
+        if (nombreProducto === producto.nombre) {
+            return Swal.fire({
+                icon: "error",
+                title: "ERROR",
+                text: "NO SE PUEDEN AGREGAR PRODUCTOS CON EL MISMO NOMBRE",
+                footer: 'Probá con otro nombre'
+              });
+        }
+    }
+
+    if (inputAgregarProductosNombre.value === "" || inputAgregarProductosNumero.value === "" || inputAgregarProductoDetalles.value === "") {
+        return Swal.fire({
+            icon: "error",
+            title: "ERROR",
+            text: "NO SE PUEDE AGREGAR UN PRODUCTO CON ALGUNO DE SUS DATOS VACIOS",
+          });
+    } else {
+        Productos = {
+            nombre: nombreProducto,
+            precio: precioProducto,
+            detalles: detallesProducto,
+            id: Math.floor(Math.random() * 100)
+        }
+        guardarProductoDB(database, Productos)
+    }
+    console.log(Productos)
+    formAgregarProductos.reset()
+})
 
