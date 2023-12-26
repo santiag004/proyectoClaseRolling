@@ -9,40 +9,40 @@ const lista = document.getElementById("listaDeProductos")
 
 class Producto {
     constructor(id, nombre, precio, descripcion) {
-        this.id = id;
-        this.nombre = nombre;
-        this.precio = precio;
-        this.descripcion = descripcion;
+        this._id = id;
+        this._nombre = nombre;
+        this._precio = precio;
+        this._descripcion = descripcion;
+    }
+//getters
+    get getId() {
+        return this._id;
     }
 
-    getId() {
-        return this.id;
+    get getNombre() {
+        return this._nombre;
     }
 
-    getNombre() {
-        return this.nombre;
+    get getPrecio() {
+        return this._precio;
     }
 
-    getPrecio() {
-        return this.precio;
+    get getDescripcion() {
+        return this._descripcion;
+    }
+//setters
+    set setId(id) {
+        this._id = id;
+    }
+    set setNombre(nombre) {
+        this._nombre = (nombre);
+    }
+    set setPrecio(precio) {
+        this._precio = precio
     }
 
-    getDescripcion() {
-        return this.descripcion;
-    }
-
-    setId(id) {
-        this.id = id;
-    }
-    setNombre(nombre) {
-        this.nombre = (nombre);
-    }
-    setPrecio(precio) {
-        this.precio = precio
-    }
-
-    setDescripcion(newDescripcion) {
-        this.descripcion = newDescripcion;
+    set setDescripcion(descripcion) {
+        this._descripcion = descripcion;
     }
 }
 
@@ -83,14 +83,16 @@ btnAddProducto.addEventListener("click", (event) => {
         });
     } else {
         const productos = crearProducto(sku, nombreProducto, precioProducto, detallesProducto)
+        console.log(productos)
         guardarProductoDB(database, productos)
         listarProductos()
+
     }
     formAgregarProductos.reset()
 })
 
 const guardarProductoDB = (db, productoAGuardar) => {
-    db.setItem(productoAGuardar.id, JSON.stringify(productoAGuardar))
+    db.setItem(productoAGuardar._id, JSON.stringify(productoAGuardar))
 }
 const crearProducto = (idP, nomP, preP, detP) => {
     return new Producto(idP, nomP, preP, detP)
@@ -99,14 +101,17 @@ const crearProducto = (idP, nomP, preP, detP) => {
 const listarProductos = () => {
     lista.innerHTML = ""
     let idsProductos = Object.keys(database)
-    for (id of idsProductos) {
-        let producto = JSON.parse(database.getItem(id))
+    for (_id of idsProductos) {
+        let producto = JSON.parse(database.getItem(_id))
         console.log(producto)
         const li = document.createElement("li")
-        li.textContent = `NOMBRE: ${producto.nombre} - DETALLES: ${producto.descripcion} - PRECIO: ${producto.precio}`
+        li.textContent = `nombre: ${producto._nombre} - detalle: ${producto._descripcion} - precio: ${producto._precio}`
         lista.appendChild(li)
         const botonEliminarContacto = document.createElement("button")
+        const btnEditar= document.createElement("button")
         botonEliminarContacto.textContent = "Borrar del Carrito"
+        btnEditar.textContent="Editar producto"
+        li.appendChild(btnEditar)
         li.appendChild(botonEliminarContacto)
         botonEliminarContacto.addEventListener("click", () => {
             eliminarContacto(database, contacto)
@@ -114,7 +119,12 @@ const listarProductos = () => {
             huecosLibres()
             agendaLlena()
         })
+        btnEditar.addEventListener("click",()=>{
+
+        })
     }
 }
 listarProductos()
+
+
 
