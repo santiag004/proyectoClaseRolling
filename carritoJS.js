@@ -83,7 +83,6 @@ btnAddProducto.addEventListener("click", (event) => {
         });
     } else {
         const productos = crearProducto(sku, nombreProducto, precioProducto, detallesProducto)
-        console.log(productos)
         guardarProductoDB(database, productos)
         listarProductos()
 
@@ -113,7 +112,7 @@ const listarProductos = () => {
         li.appendChild(btnEditar)
         li.appendChild(botonEliminarProducto)
         botonEliminarProducto.addEventListener("click", () => { 
-            eliminarProductos(database, productos)
+            eliminarProductos(database, producto)
             listarProductos()
         })
         btnEditar.addEventListener("click",()=>{
