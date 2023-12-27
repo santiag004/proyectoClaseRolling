@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-<!-- Proyecto: Gestor de Productos
+    <!-- Proyecto: Gestor de Productos
 
 Objetivo:
 Crear una aplicación web sencilla para gestionar productos utilizando las tecnologías HTML, CSS y JavaScript. La aplicación debe permitir realizar operaciones básicas de un CRUD (Crear, Leer, Actualizar, Eliminar) sobre una lista de productos.
@@ -34,5 +36,21 @@ Utilizar el almacenamiento local del navegador (localStorage) para persistir los
 
 branch para creacion feat/create , feat/read , feat/update , feat/delete, fix/update -->
 <script src="./javaScript/delete.js"></script>
+
+    <h2>Agregar productos </h2>
+    <form id="formAgregarProducto">
+        Nombre del producto: <input type="text" id="inputNombreProducto">
+        Descripcion del producto: <input type="text" id="inputDescripcionProducto">
+        Precio del producto: <input type="number" id="inputPrecioProducto">
+        Codigo SKU: <input type="number" id="inputCodigoSku">
+        <button type="submit" id="buttonAgregarProducto"> Agregar</button>
+    </form>
+
+    <h3>Lista de Productos agregados</h3>
+    <ul id="listaDeProductos"></ul>
+    </div>
+<script src="./scripts/create.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
+
 </html>
