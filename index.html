@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>CARRITO DE COMPRAS</title>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 
 <body>
@@ -35,22 +36,27 @@ Almacenamiento Local:
 Utilizar el almacenamiento local del navegador (localStorage) para persistir los datos de la lista de productos. Esto permitirá que los datos permanezcan incluso después de recargar la página.
 
 branch para creacion feat/create , feat/read , feat/update , feat/delete, fix/update -->
-<script src="./javaScript/delete.js"></script>
-
+<div class="container">
+    <h1>CARRITO DE COMPRAS</h1>
+    <p>SOLO PUEDES AGREGAR 10 PRODUCTOS A TU CARRITO</p>
     <h2>Agregar productos </h2>
     <form id="formAgregarProducto">
         Nombre del producto: <input type="text" id="inputNombreProducto">
         Descripcion del producto: <input type="text" id="inputDescripcionProducto">
         Precio del producto: <input type="number" id="inputPrecioProducto">
         Codigo SKU: <input type="number" id="inputCodigoSku">
-        <button type="submit" id="buttonAgregarProducto"> Agregar</button>
+        <button type="submit" id="buttonAgregarProducto" class="btn-green"> Agregar</button>
     </form>
 
     <h3>Lista de Productos agregados</h3>
     <ul id="listaDeProductos"></ul>
-    </div>
-<script src="./scripts/create.js"></script>
+
+    <h1>LISTA DE PRODUCTOS</h1>
+    <ul id="listaProductos"></ul>
+</div>
+    
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="./carritoJS.js"></script>
 </body>
 
 </html>

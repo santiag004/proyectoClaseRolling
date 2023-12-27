@@ -5,7 +5,7 @@ const inputAgregarProductosNumero = document.getElementById("inputPrecioProducto
 const inputAgregarProductoDetalles = document.getElementById("inputDescripcionProducto")
 const btnAddProducto = document.getElementById("buttonAgregarProducto")
 const codigoSku = document.getElementById("inputCodigoSku")
-const lista = document.getElementById("listaDeProductos")
+const lista = document.getElementById("listaProductos")
 
 class Producto {
     constructor(id, nombre, precio, descripcion) {
@@ -107,17 +107,15 @@ const listarProductos = () => {
         const li = document.createElement("li")
         li.textContent = `nombre: ${producto._nombre} - detalle: ${producto._descripcion} - precio: ${producto._precio}`
         lista.appendChild(li)
-        const botonEliminarContacto = document.createElement("button")
+        const botonEliminarProducto = document.createElement("button")
         const btnEditar= document.createElement("button")
-        botonEliminarContacto.textContent = "Borrar del Carrito"
+        botonEliminarProducto.textContent = "Borrar del Carrito"
         btnEditar.textContent="Editar producto"
         li.appendChild(btnEditar)
-        li.appendChild(botonEliminarContacto)
-        botonEliminarContacto.addEventListener("click", () => {
-            eliminarContacto(database, contacto)
-            listarContactos()
-            huecosLibres()
-            agendaLlena()
+        li.appendChild(botonEliminarProducto) //se agrega el boton eliminar a cada li.
+        botonEliminarProducto.addEventListener("click", () => {
+            eliminarProductos(database, producto)
+            listarProductos()
         })
         btnEditar.addEventListener("click",()=>{
 
@@ -125,6 +123,6 @@ const listarProductos = () => {
     }
 }
 listarProductos()
-
-
-
+const eliminarProductos = (database, productos) => {
+database.removeItem(productos._id) //removeIteam es del localStorage para que se elimine el id del producto.
+}
