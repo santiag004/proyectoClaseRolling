@@ -103,7 +103,6 @@ const listarProductos = () => {
     let idsProductos = Object.keys(database)
     for (_id of idsProductos) {
         let producto = JSON.parse(database.getItem(_id))
-        console.log(producto)
         const li = document.createElement("li")
         li.textContent = `nombre: ${producto._nombre} - detalle: ${producto._descripcion} - precio: ${producto._precio}`
         lista.appendChild(li)
@@ -112,13 +111,35 @@ const listarProductos = () => {
         botonEliminarProducto.textContent = "Borrar del Carrito"
         btnEditar.textContent="Editar producto"
         li.appendChild(btnEditar)
-        li.appendChild(botonEliminarProducto) //se agrega el boton eliminar a cada li.
-        botonEliminarProducto.addEventListener("click", () => {
-            eliminarProductos(database, producto)
+        li.appendChild(botonEliminarProducto)
+        botonEliminarProducto.addEventListener("click", () => { 
+            eliminarProductos(database, productos)
             listarProductos()
         })
         btnEditar.addEventListener("click",()=>{
-
+            const formEditar=document.getElementById("formEditar")
+            const inputEditarNombre=document.createElement ("input")
+            const inputEditardetalle=document.createElement ("input")
+            const inputEditarPrecio=document.createElement ("input")
+            const btnGuardarCambios=document.createElement("button")
+            inputEditarNombre.value =producto._nombre
+            inputEditardetalle.value =producto._descripcion
+            inputEditarPrecio.value =producto._precio
+            btnGuardarCambios.textContent="Guardar Cambios"
+            formEditar.appendChild(inputEditarNombre)
+            formEditar.appendChild(inputEditardetalle)
+            formEditar.appendChild(inputEditarPrecio)
+            formEditar.appendChild(btnGuardarCambios)
+            btnGuardarCambios.addEventListener("click",()=>{
+                let nuevoNombre=inputEditarNombre.value.toLowerCase()
+                let nuevoDescripcion=inputEditardetalle.value.toLowerCase()
+                let nuevoPrecio= Number (inputEditarPrecio.value)
+                producto._nombre=nuevoNombre
+                producto._descripcion=nuevoDescripcion
+                producto._precio=nuevoPrecio
+                guardarProductoDB(database,producto)
+                listarProductos()
+            })
         })
     }
 }
